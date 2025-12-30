@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot name="banana" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- 香蕉Link：包含可视化、碰撞、惯性属性 -->
+  <link name="banana">
+    <!-- 可视化部分：引用YCB的OBJ模型+纹理 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>  <!-- 可调整香蕉朝向/偏移 -->
+      <geometry>
+        <mesh filename="package://openarm_moveit_config/models/011_banana/textured.obj" />
+      </geometry>
+      <material name="banana_mat">
+        <texture filename="package://openarm_moveit_config/models/011_banana/texture_map.png" />
+      </material>
+    </visual>
+
+    <!-- 碰撞检测部分：复用OBJ模型（简化版，也可用简单几何体） -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://openarm_moveit_config/models/011_banana/textured.obj" />
+      </geometry>
+    </collision>
+
+    <!-- 惯性参数（香蕉质量≈0.15kg，惯性矩阵估算值） -->
+    <inertial>
+      <mass value="0.15"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" 
+               iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+</robot>
