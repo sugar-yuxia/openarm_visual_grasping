@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="camera_d435_simple">
+
+  <!-- 1. 相机安装位置（眼在手外示例：底座顶部偏左） -->
+  <xacro:property name="camera_xyz" value="0.1 0 0.3" />  <!-- x=左移0.1m, y=0, z=抬高0.3m -->
+  <xacro:property name="camera_rpy" value="0 0 0" />      <!-- 无旋转，可根据需要调整 -->
+
+  <!-- 2. 相机可视模型（用长方体简化） -->
+  <link name="camera_d435_link">
+    <visual>
+      <geometry>
+        <box size="0.09 0.025 0.025" />  <!-- 长×宽×高 ≈ D435 尺寸 -->
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+  </link>
+
+  <!-- 3. 固定关节（关联到机器人基坐标系 base_link） -->
+  <joint name="camera_to_base" type="fixed">
+    <parent link="base_link" />
+    <child link="camera_d435_link" />
+    <origin xyz="${camera_xyz}" rpy="${camera_rpy}" />
+  </joint>
+
+</robot>
