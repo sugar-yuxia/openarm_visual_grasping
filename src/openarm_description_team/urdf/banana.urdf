@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot name="banana" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- 定义香蕉的材质：柔性（rubber） -->
+  <material name="rubber">
+    <color rgba="1.0 1.0 0.6 1"/>  <!-- 浅黄色示例，模拟香蕉 -->
+  </material>
+
+  <!-- 香蕉的 link：banana_link -->
+  <link name="banana_link">
+    <!-- 视觉 -->
+    <visual>
+      <geometry>
+        <cylinder length="0.2" radius="0.025"/>  <!-- 长度0.2m，直径0.05m → 半径0.025m -->
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="rubber"/>
+    </visual>
+
+    <!-- 碰撞 -->
+    <collision>
+      <geometry>
+        <cylinder length="0.2" radius="0.025"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+
+    <!-- 惯性 -->
+    <inertial>
+      <mass value="0.05"/>  <!-- 香蕉质量示例：0.05kg -->
+      <inertia ixx="5e-5" ixy="0" ixz="0" 
+               iyy="5e-5" iyz="0" 
+               izz="2.5e-4"/>  <!-- 圆柱体惯性近似，可根据实际调整 -->
+    </inertial>
+  </link>
+
+  <!-- 把香蕉挂到世界（固定关节，也可以后续在 scene.xml 里用 <body pos=…> 定位） -->
+  <joint name="world_to_banana" type="fixed">
+    <parent link="world"/>
+    <child link="banana_link"/>
+    <origin xyz="0.5 0.1 0.75" rpy="0 0 0"/>  <!-- 放在桌子右侧上方，x=0.5, y=0.1, z=0.75 -->
+  </joint>
+</robot>

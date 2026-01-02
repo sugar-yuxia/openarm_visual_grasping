@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot name="table" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- 定义桌子的材质：木质 -->
+  <material name="wood">
+    <!-- MuJoCo 里可以通过 rgba 控制颜色，也可以结合 texture（如果要纹理的话，需额外准备 mesh 或图片） -->
+    <color rgba="0.7 0.5 0.3 1"/>  <!-- 木色示例：R=0.7, G=0.5, B=0.3, A=1 -->
+  </material>
+
+  <!-- 桌子的 link：table_link -->
+  <link name="table_link">
+    <!-- 视觉（可视化） -->
+    <visual>
+      <geometry>
+        <box size="1.0 0.6 0.7"/>  <!-- 长×宽×高 = 1m × 0.6m × 0.7m -->
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>  <!-- 桌子原点在自己的几何中心 -->
+      <material name="wood"/>  <!-- 引用上面定义的木质材质 -->
+    </visual>
+
+    <!-- 碰撞（MuJoCo 仿真时需要碰撞检测，所以也要给碰撞盒） -->
+    <collision>
+      <geometry>
+        <box size="1.0 0.6 0.7"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+
+    <!-- 惯性（MuJoCo 做动力学仿真需要惯性矩阵，这里给一个近似值，实际可根据质量估算） -->
+    <inertial>
+      <mass value="10.0"/>  <!-- 桌子质量示例：10kg -->
+      <inertia ixx="0.1" ixy="0" ixz="0" 
+               iyy="1.0" iyz="0" 
+               izz="0.5"/>  <!-- 惯性张量，可根据 box 尺寸和质量大致计算：I = m*( (w²+h²)/12 , (l²+h²)/12 , (l²+w²)/12 )  -->
+    </inertial>
+  </link>
+
+  <!-- 把桌子挂到 world 上（固定关节） -->
+  <joint name="world_to_table" type="fixed">
+    <parent link="world"/>  <!-- MuJoCo 和 ROS 里常见的“世界”link 名称 -->
+    <child link="table_link"/>
+    <origin xyz="0.5 0 0" rpy="0 0 0"/>  <!-- 桌子在基坐标系下的位置：x=0.5m, y=0, z=0 -->
+  </joint>
+</robot>

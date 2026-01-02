@@ -1,38 +1,52 @@
-<mujoco model="openarm_bimanual scene">
-  <include file="openarm_bimanual.xml"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<mujoco model="openarm_scene">
+  <!-- 全局物理选项 -->
+  <option gravity="0 0 -9.81" timestep="0.001" solver="Newton" iterations="50" tolerance="1e-6"/>
 
-  <statistic center="0 0 0.43" extent=".85" meansize="0.05"/>
+  <!-- 编译器选项 -->
+  <compiler angle="degree" coordinate="local" inertiafromgeom="auto" inertiagrouprange="4 5"/>
 
+  <!-- 可视化设置 -->
   <visual>
-    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
-    <rgba haze="0.15 0.25 0.35 1"/>
-    <global azimuth="160" elevation="-10"/>
-    <quality shadowsize="8192"/>
+    <map fogstart="3" fogend="5" force="0.1" specular="0.3"/>
+    <quality shadowsize="2048" offsamples="8"/>
+    <global elevation="-20" azimuth="120"/>
   </visual>
 
+  <!-- 世界体：放置所有刚体、关节、灯光等 -->
+  <worldbody>
+    <!-- 引入桌子 URDF -->
+    <include file="$(find openarm_description_team)/urdf/table.urdf">
+      <pos x="0.5" y="0" z="0"/>
+    </include>
+
+    <!-- 引入苹果 URDF -->
+    <include file="$(find openarm_description_team)/urdf/apple.urdf">
+      <pos x="0.5" y="0" z="0.75"/>
+    </include>
+
+    <!-- 引入香蕉 URDF -->
+    <include file="$(find openarm_description_team)/urdf/banana.urdf">
+      <pos x="0.5" y="0.1" z="0.75"/>
+    </include>
+
+    <!-- 地面 -->
+    <geom name="floor" type="plane" size="2 2 0.1" rgba="0.5 0.5 0.5 1" condim="3"/>
+
+    <!-- 光源 -->
+    <light directional="true" pos="0 0 3" dir="0 0 -1" diffuse="1 1 1" specular="0.1"/>
+    <light directional="true" pos="3 0 3" dir="-1 0 -1" diffuse="0.8 0.8 0.8" specular="0.1"/>
+  </worldbody>
+
+  <!-- 资产（如果有 mesh/texture 才需要） -->
   <asset>
-    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
-    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
-      markrgb="0.8 0.8 0.8" width="300" height="300"/>
-    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
-    
-    <!-- 桌子材质 -->
-    <texture type="2d" name="table_texture" builtin="flat" rgb1="0.6 0.3 0.1" rgb2="0.6 0.3 0.1" width="512" height="512"/>
-    <material name="table_material" texture="table_texture" texuniform="true" texrepeat="1 1" reflectance="0.3"/>
-    
+    <!-- 示例：<texture name="wood" type="2d" file="../textures/wood.jpg"/>
+         <material name="wood_mat" texture="wood" rgba="1 1 1 1"/> -->
   </asset>
 
-  <worldbody>
-    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
-    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
-    
-    <!-- 添加桌子 -->
-    <body name="table" pos="0.35 0 0.15">
-      <geom name="table_geom" type="box" size="0.25 0.3 0.15" material="table_material" 
-            mass="5" friction="1 0.01 0.01" />
-      <inertial pos="0 0 0.15" mass="5" 
-                diaginertia="0.05 0.05 0.05" />
-    </body>
+  <!-- 执行器（这里为空，因为场景里只有静态物体） -->
+  <actuator/>
 
-  </worldbody>
+  <!-- 传感器（这里为空，可按需添加摄像头、接触传感器等） -->
+  <sensor/>
 </mujoco>
