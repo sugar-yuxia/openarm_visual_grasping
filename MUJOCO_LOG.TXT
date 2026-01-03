@@ -1,3 +1,23 @@
 Tue Dec 30 10:03:28 2025
 ERROR: Load model error: ParseXML: Error opening file '/home/puppiesflier/work_ws/src/openarm_mujoco/v1/scene.xml': No such file or directory
 
+Fri Jan  2 23:12:08 2026
+ERROR: Load model error: ParseXML: Error opening file '/home/puppiesflier/work_ws/src/openarm_mujoco/v1/scene.xml': No such file or directory
+
+Fri Jan  2 23:17:44 2026
+ERROR: Load model error: ParseXML: Error opening file '/home/puppiesflier/work_ws/src/openarm_mujoco/v1/scene.xml': No such file or directory
+
+Fri Jan  2 23:21:05 2026
+ERROR: Load model error: ParseXML: Error opening file '/home/puppiesflier/work_ws/src/openarm_mujoco/v1/scene.xml': No such file or directory
+
+Fri Jan  2 23:41:20 2026
+ERROR: Load model error: ParseXML: Error opening file '/home/yuxia/work_ws/src/openarm_mujoco/v1/scene.xml': No such file or directory
+
+Sat Jan  3 00:00:08 2026
+ERROR: Load model error: ParseXML: Error opening file '/home/yuxia/work_ws/src/openarm_mujoco/v1/scene.xml': No such file or directory
+
+Sat Jan  3 00:11:13 2026
+ERROR: Load model error: XML Error: Include element cannot have children
+Element 'include', line 19
+
+

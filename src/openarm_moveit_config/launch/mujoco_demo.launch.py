@@ -34,7 +34,7 @@ def generate_launch_description():
     # print(f"_______________________{xacro_file_path}____________________")
 
     # mujoco_model_path = "/home/ldp/openarm_ws/openarm_mujoco/v1/openarm_bimanual_cam.xml"
-    mujoco_model_path = "/home/puppiesflier/work_ws/src/openarm_mujoco/v1/scene.xml"
+    mujoco_model_path = "/home/yuxia/openarm_visual_grasping_ws/src/openarm_mujoco/v1/scene.xml"
     
 
     # 这里的 controllers_file 可以保留用 LaunchConfiguration，因为它是在 Node 运行时才用的
