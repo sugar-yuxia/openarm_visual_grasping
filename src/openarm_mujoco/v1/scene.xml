@@ -4,11 +4,11 @@
   <option gravity="0 0 -9.81" timestep="0.001" solver="Newton" iterations="50" tolerance="1e-6"/>
 
   <!-- 编译器选项 -->
-  <compiler angle="degree" coordinate="local" inertiafromgeom="auto" inertiagrouprange="4 5"/>
+  <compiler angle="radian" coordinate="local" inertiafromgeom="auto" inertiagrouprange="4 5"/>
 
   <!-- 可视化设置 -->
   <visual>
-    <map fogstart="3" fogend="5" force="0.1" specular="0.3"/>
+    <map fogstart="3" fogend="5" force="0.1"/>
     <quality shadowsize="2048" offsamples="8"/>
     <global elevation="-20" azimuth="120"/>
   </visual>
@@ -16,19 +16,22 @@
   <!-- 世界体：放置所有刚体、关节、灯光等 -->
   <worldbody>
     <!-- 引入桌子 URDF -->
-    <include file="$(find openarm_description_team)/urdf/table.urdf">
-      <pos x="0.5" y="0" z="0"/>
-    </include>
+    <include file="/home/yuxia/openarm_visual_grasping_ws/src/openarm_description_team/urdf/table.urdf"/>
+    <override>
+      <body name="table" pos="0.5 0 0"/> <!-- 桌子位置：x=0.5, y=0, z=0 -->
+    </override>
 
     <!-- 引入苹果 URDF -->
-    <include file="$(find openarm_description_team)/urdf/apple.urdf">
-      <pos x="0.5" y="0" z="0.75"/>
-    </include>
+    <include file="/home/yuxia/openarm_visual_grasping_ws/src/openarm_description_team/urdf/apple.urdf"/>
+    <override>
+      <body name="apple" pos="0.5 0 0.75"/> <!-- 苹果位置：桌子上 z=0.75 -->
+    </override>
 
     <!-- 引入香蕉 URDF -->
-    <include file="$(find openarm_description_team)/urdf/banana.urdf">
-      <pos x="0.5" y="0.1" z="0.75"/>
-    </include>
+    <include file="/home/yuxia/openarm_visual_grasping_ws/src/openarm_description_team/urdf/banana.urdf"/>
+    <override>
+      <body name="banana" pos="0.5 0.1 0.75"/> <!-- 香蕉位置：x=0.5, y=0, z=0 -->
+    </override>
 
     <!-- 地面 -->
     <geom name="floor" type="plane" size="2 2 0.1" rgba="0.5 0.5 0.5 1" condim="3"/>

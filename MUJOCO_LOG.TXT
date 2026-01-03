@@ -21,3 +21,23 @@ ERROR: Load model error: XML Error: Include element cannot have children
 Element 'include', line 19
 
 
+Sat Jan  3 21:58:58 2026
+ERROR: Load model error: XML Error: Include element cannot have children
+Element 'include', line 19
+
+
+Sat Jan  3 22:02:12 2026
+ERROR: Load model error: XML Error: Include element cannot have children
+Element 'include', line 19
+
+
+Sat Jan  3 22:23:35 2026
+ERROR: Load model error: XML Error: Schema violation: unrecognized attribute: 'specular'
+Element 'map', line 11
+
+
+Sun Jan  4 00:17:03 2026
+ERROR: Load model error: XML Error: Schema violation: unrecognized element
+Element 'material', line 0
+
+
