@@ -1,22 +1,25 @@
 <?xml version="1.0"?>
 <robot name="apple" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <!-- 定义苹果的材质：柔性（rubber） -->
-  <material name="rubber">
-    <color rgba="1.0 0.8 0.6 1"/>  <!-- 浅橙色/红色示例，模拟苹果 -->
+
+  <!-- 定义苹果的材质：红色 -->
+  <material name="red_apple">
+    <color rgba="1.0 0.2 0.1 1.0"/> <!-- 更红的苹果颜色 -->
   </material>
 
-  <!-- 苹果的 link：apple_link -->
+  <!-- 苹果的link: apple_link -->
   <link name="apple_link">
-    <!-- 视觉 -->
+    <!-- 视觉部分：使用mesh模型 -->
     <visual>
       <geometry>
-        <sphere radius="0.04"/>  <!-- 直径0.08m → 半径0.04m -->
+        <!-- 加载外部3D模型 -->
+        <mesh filename="package://openarm_description_team/urdf/Red_Apple_model_5260915/apple.dae" 
+              scale="0.01 0.01 0.01"/>
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <material name="rubber"/>
+      <material name="red_apple"/>
     </visual>
 
-    <!-- 碰撞 -->
+    <!-- 碰撞部分：为了仿真效率，仍用简化球体 -->
     <collision>
       <geometry>
         <sphere radius="0.04"/>
@@ -24,19 +27,19 @@
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </collision>
 
-    <!-- 惯性 -->
+    <!-- 惯性参数 -->
     <inertial>
-      <mass value="0.1"/>  <!-- 苹果质量示例：0.1kg -->
+      <mass value="0.1"/>
       <inertia ixx="1e-5" ixy="0" ixz="0" 
-               iyy="1e-5" iyz="0" 
-               izz="1e-5"/>  <!-- 球体惯性：I = (2/5)*m*r² ，这里简化为很小的对角值 -->
+               iyy="1e-5" iyz="0" izz="1e-5"/>
     </inertial>
   </link>
 
-  <!-- 把苹果挂到世界（固定关节，也可以后续在 scene.xml 里用 <body pos=…> 定位） -->
+  <!-- 固定苹果到世界坐标系 -->
   <joint name="world_to_apple" type="fixed">
     <parent link="world"/>
     <child link="apple_link"/>
-    <origin xyz="0.5 0 0.75" rpy="0 0 0"/>  <!-- 暂时放在桌子正上方，x=0.5, y=0, z=桌子高度(0.7)+苹果半径(0.04)≈0.75 -->
+    <origin xyz="0.5 0 0.75" rpy="0 0 0"/>
   </joint>
+
 </robot>
